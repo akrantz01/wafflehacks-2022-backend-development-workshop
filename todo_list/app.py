@@ -1,9 +1,21 @@
 from http import HTTPStatus
+from os import environ
 from random import randint
 
+from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 
+from . import database
+
+# Get all the environment variables from the .env file
+load_dotenv()
+
 app = Flask(__name__)
+
+# Configure SQLAlchemy
+app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URL")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+database.init(app)
 
 # This dictionary will store our todos by id, so we can retrieve them later
 todos = {}
