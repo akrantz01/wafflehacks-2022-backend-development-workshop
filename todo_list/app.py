@@ -28,7 +28,7 @@ def create_todo():
 
     # Check all required fields are present
     if summary is None:
-        return jsonify({"message": "field 'summary' is required"}), HTTPStatus.BAD_REQUEST
+        return jsonify(message="field 'summary' is required"), HTTPStatus.BAD_REQUEST
 
     # Build the todo item
     id = randint(0, 10000)
@@ -49,7 +49,7 @@ def single_todo(id):
 
     # If the todo does not exist, return an error
     if todo is None:
-        return jsonify({"message": "not found"}), HTTPStatus.NOT_FOUND
+        return jsonify(message="not found"), HTTPStatus.NOT_FOUND
 
     return jsonify(todo)
 
@@ -68,7 +68,7 @@ def update_todo(id):
     """
     todo = todos.get(id)
     if todo is None:
-        return jsonify({"message": "not found"}), HTTPStatus.NOT_FOUND
+        return jsonify(message="not found"), HTTPStatus.NOT_FOUND
 
     summary = request.json.get("summary")
     if summary is not None:
@@ -80,7 +80,7 @@ def update_todo(id):
 
     complete = request.json.get("complete")
     if complete is not None:
-        type["complete"] = complete
+        todo["complete"] = complete
 
     return jsonify(todo)
 
@@ -92,13 +92,13 @@ def toggle_todo(id):
     """
     todo = todos.get(id)
     if todo is None:
-        return jsonify({"message": "not found"}), HTTPStatus.NOT_FOUND
+        return jsonify(message="not found"), HTTPStatus.NOT_FOUND
 
     # Invert the status
     todo["complete"] = not todo["complete"]
 
     # Return the new status
-    return jsonify({"complete": todo["complete"]})
+    return jsonify(complete=todo["complete"])
 
 
 @app.delete("/todos/<int:id>")
