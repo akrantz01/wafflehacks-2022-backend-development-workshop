@@ -131,9 +131,7 @@ def delete_todo(id):
     """
     # Whether or not the todo exists is of no concern to us. If it doesn't exist, then we already fulfilled the user's
     # desired outcome
-    todo = Todo.query.get(id)
-    if todo is not None:
-        db.session.delete(todo)
-        db.session.commit()
+    Todo.query.filter_by(id=id).delete()
+    db.session.commit()
 
     return "", HTTPStatus.NO_CONTENT
