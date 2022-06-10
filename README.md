@@ -6,7 +6,14 @@ In this workshop you will learn to create a todo list webapp complete with lists
 
 **Note**: This workshop will NOT teach you how to build the frontend. We will just be connecting the frontend to the backend.
 
-Once the workshop has concluded, the full code will be available [here](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/complete).
+Once the workshop has concluded, each stage will be available in the following branches:
+- [stage-1](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-1): dictionary storage 
+- [stage-2](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-2): database storage
+- [stage-3](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-3): adding lists
+- [stage-4](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-4): adding tags
+- [stage-5](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-5): CORS integration
+- [stage-6](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-6): deployment
+- [complete](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/complete)
 
 
 ### Pre-requisites
