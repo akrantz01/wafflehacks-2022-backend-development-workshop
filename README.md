@@ -6,6 +6,8 @@ In this workshop you will learn to create a todo list webapp complete with lists
 
 **Note**: This workshop will NOT teach you how to build the frontend. We will just be connecting the frontend to the backend.
 
+Once the workshop has concluded, the full code will be available [here](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/complete).
+
 
 ### Pre-requisites
 - [Python 3](https://www.python.org) installed (>= 3.8)
