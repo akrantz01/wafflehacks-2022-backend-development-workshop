@@ -14,7 +14,16 @@ def all_todos():
     """
     Get a list of all todos in the database
     """
-    return jsonify(list(todos.values()))
+    return jsonify(
+        [
+            {
+                "id": todo.get("id"),
+                "summary": todo.get("summary"),
+                "complete": todo.get("complete"),
+            }
+            for todo in todos.values()
+        ]
+    )
 
 
 @app.post("/todos")
