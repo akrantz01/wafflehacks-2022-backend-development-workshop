@@ -10,11 +10,9 @@ app = Blueprint("lists", __name__)
 
 def render(list):
     return jsonify(
-        {
-            "id": list.id,
-            "name": list.name,
-            "todos": [{"id": todo.id, "summary": todo.summary, "complete": todo.complete} for todo in list.todos],
-        }
+        id=list.id,
+        name=list.name,
+        todos=[{"id": todo.id, "summary": todo.summary, "complete": todo.complete} for todo in list.todos],
     )
 
 
