@@ -12,6 +12,7 @@ Once the workshop has concluded, each stage will be available in the following b
 - [stage-3](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-3): adding lists
 - [stage-4](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-4): adding tags
 - [stage-5](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-5): deployment
+- [everything](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/everything): everything, including the frontend and database resetting service 
 
 
 ### Pre-requisites
