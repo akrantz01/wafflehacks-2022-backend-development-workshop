@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from flask import Blueprint, jsonify, request
 
-from .database import db, Todo
+from .database import db, List, Todo
 
 
 app = Blueprint("todos", __name__)
@@ -19,6 +19,7 @@ def all():
                 "id": todo.id,
                 "summary": todo.summary,
                 "complete": todo.complete,
+                "list_id": todo.list_id,
             }
             for todo in Todo.query.all()
         ]
@@ -33,13 +34,19 @@ def create():
     # Get the fields
     summary = request.json.get("summary")
     description = request.json.get("description")
+    list_id = request.json.get("list")
 
     # Check all required fields are present
     if summary is None:
         return jsonify(message="field 'summary' is required"), HTTPStatus.BAD_REQUEST
 
+    # Check the list exists
+    if list_id is not None:
+        if List.query.get(list_id) is None:
+            return jsonify(message="list does not exist"), HTTPStatus.BAD_REQUEST
+
     # Build the todo item
-    todo = Todo(summary=summary, description=description)
+    todo = Todo(summary=summary, description=description, list_id=list_id)
 
     # Insert it into the database
     db.session.add(todo)
@@ -85,6 +92,13 @@ def update(id):
     description = request.json.get("description", _Sentinel())
     if type(description) != _Sentinel:
         todo.description = description
+
+    list_id = request.json.get("list", _Sentinel())
+    if type(list_id) != _Sentinel:
+        if List.query.get(list_id) is None:
+            return jsonify(message="list does not exist"), HTTPStatus.BAD_REQUEST
+
+        todo.list_id = list_id
 
     complete = request.json.get("complete")
     if complete is not None:
