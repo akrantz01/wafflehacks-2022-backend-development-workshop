@@ -38,6 +38,13 @@ def init_db(app):
     db.create_all(app=app)
 
 
+tags_todos_link = db.Table(
+    "tags_todos",
+    db.Column("tag_id", db.String, db.ForeignKey("tags.name", ondelete="CASCADE"), primary_key=True),
+    db.Column("todo_id", db.Integer, db.ForeignKey("todos.id", ondelete="CASCADE"), primary_key=True),
+)
+
+
 @dataclass()
 class Todo(db.Model):
     __tablename__ = "todos"
@@ -49,6 +56,8 @@ class Todo(db.Model):
 
     list_id: int = db.Column(db.Integer, db.ForeignKey("lists.id"), nullable=True)
 
+    tags: ListT["Tag"] = db.relation("Tag", secondary=tags_todos_link, backref="todos", lazy=True)
+
 
 @dataclass()
 class List(db.Model):
@@ -58,3 +67,10 @@ class List(db.Model):
     name: str = db.Column(db.Text, nullable=False)
 
     todos: ListT["Todo"] = db.relation("Todo", backref="list", lazy=True)
+
+
+@dataclass()
+class Tag(db.Model):
+    __tablename__ = "tags"
+
+    name: str = db.Column(db.Text, primary_key=True)

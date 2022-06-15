@@ -3,7 +3,7 @@ from os import environ
 from dotenv import load_dotenv
 from flask import Flask
 
-from . import lists, todos
+from . import lists, tags, todos
 from .database import init_db
 
 # Get all the environment variables from the .env file
@@ -18,4 +18,5 @@ init_db(app)
 
 # Register the blueprints
 app.register_blueprint(lists.app, url_prefix="/lists")
+app.register_blueprint(tags.app, url_prefix="/tags")
 app.register_blueprint(todos.app, url_prefix="/todos")
