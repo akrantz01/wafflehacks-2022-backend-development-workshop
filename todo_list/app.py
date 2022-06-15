@@ -12,7 +12,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Configure SQLAlchemy
-app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URL", "").replace("postgres://", "postgresql://")
+app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 init_db(app)
 
