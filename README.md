@@ -1,4 +1,4 @@
-# Full Stack Workshop
+# Backend Development Workshop
 ###### Presented at 12pm on June 18th, 2022 (EDT)
 
 Learn how to quickly plan, build, and deploy a backend in Python using Flask, and then integrate it with a React frontend.
