@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION=3.7
+ARG PYTHON_VERSION=3.9-slim
 
 FROM python:${PYTHON_VERSION}
 
@@ -15,12 +15,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY . .
-
-RUN python manage.py collectstatic --noinput
-
+COPY ./todo_list ./todo_list
 
 EXPOSE 8080
 
-# replace APP_NAME with module name
-CMD ["gunicorn", "--bind", ":8080", "--workers", "2", "demo.wsgi"]
+CMD ["gunicorn", "--bind", ":8080", "--workers", "2", "--access-logfile", "-", "todo_list:app"]
