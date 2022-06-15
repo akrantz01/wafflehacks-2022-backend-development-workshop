@@ -11,8 +11,7 @@ Once the workshop has concluded, each stage will be available in the following b
 - [stage-2](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-2): database storage
 - [stage-3](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-3): adding lists
 - [stage-4](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-4): adding tags
-- [stage-5](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-5): CORS integration
-- [stage-6](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-6): deployment
+- [stage-5](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/stage-5): deployment
 - [complete](https://github.com/akrantz01/wafflehacks-2022-fullstack-workshop/tree/complete)
 
 
