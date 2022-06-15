@@ -20,3 +20,33 @@ Once the workshop has concluded, each stage will be available in the following b
 - An IDE you're comfortable using ([PyCharm](https://www.jetbrains.com/pycharm/), [VSCode](https://code.visualstudio.com/), [Atom](https://atom.io/), etc.)
 - A [Railway](https://railway.app) account
 - The `railway` tool [installed](https://docs.railway.app/develop/cli#install) and [authenticated](https://docs.railway.app/develop/cli#login)
+
+
+### Deployment
+
+To deploy this application on [Railway](https://railway.app), use the following steps:
+
+1. Initialize a project: `railway init`
+   - Select `Empty Project` for your starting point
+   - Give your project an awesome name
+   - If prompted, don't import your environment variables
+2. Add a PostgreSQL database: `railway add`
+   - Select `postgresql` from the list
+3. Deploy your app: `railway up`
+4. Generate a domain for your application
+   - Go to your project page
+   - Click on the service with your project's name
+   - Go to the service's settings
+   - Under the `Environment` heading, click on `Generate Domain`
+5. Your application is now deployed!!
+   - If you go to your domain, you will get a page not found -- this is expected
+   - Try going to one of the routes you defined in earlier stages
+
+
+#### Troubleshooting
+
+If your deployment is successful, but you keep getting a screen similar to the following:
+
+![](https://i.imgur.com/25SEfg4.png)
+
+Try running `railway up` again.
