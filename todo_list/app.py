@@ -2,6 +2,7 @@ from os import environ
 
 from dotenv import load_dotenv
 from flask import Flask
+from flask_cors import CORS
 
 from . import lists, tags, todos
 from .database import init_db
@@ -10,6 +11,7 @@ from .database import init_db
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 # Configure SQLAlchemy
 app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URL")
