@@ -18,5 +18,5 @@ Once the workshop has concluded, each stage will be available in the following b
 ### Pre-requisites
 - [Python 3](https://www.python.org) installed (>= 3.8)
 - An IDE you're comfortable using ([PyCharm](https://www.jetbrains.com/pycharm/), [VSCode](https://code.visualstudio.com/), [Atom](https://atom.io/), etc.)
-- A [Fly.io](https://fly.io/) account
-- The `flyctl` tool [installed](https://fly.io/docs/getting-started/installing-flyctl/) and [configured](https://fly.io/docs/getting-started/log-in-to-fly/)
+- A [Railway](https://railway.app) account
+- The `railway` tool [installed](https://docs.railway.app/develop/cli#install) and [authenticated](https://docs.railway.app/develop/cli#login)
