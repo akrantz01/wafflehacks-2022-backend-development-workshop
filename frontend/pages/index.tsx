@@ -1,60 +1,102 @@
-import type { NextPage } from 'next';
-import Image from 'next/image';
+import {
+  AnchorButton,
+  Button,
+  ButtonGroup,
+  Card,
+  Elevation,
+  H2,
+  HTMLTable,
+  Intent,
+  NonIdealState,
+  Tag,
+} from '@blueprintjs/core';
+import Link from 'next/link';
 
-import styles from '../styles/Home.module.css';
+import Loading from '../components/Loading';
+import type { Page } from '../lib/page';
+import { ReducedTodo } from '../lib/types';
+import useFetch from '../lib/useFetch';
+import styles from '../styles/table.module.css';
 
-const Home: NextPage = () => {
+const Todos: Page = ({ domain }) => {
+  const { data, isLoading, refresh } = useFetch<ReducedTodo[]>(domain, '/todos');
+
+  const createButton = (
+    <Link href="/todos/new" passHref>
+      <AnchorButton intent={Intent.SUCCESS} icon="plus">
+        New
+      </AnchorButton>
+    </Link>
+  );
+
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+    <Card style={{ margin: 'auto', width: '50%' }} elevation={Elevation.ONE}>
+      <H2>Todos</H2>
 
-        <p className={styles.description}>
-          Get started by editing <code className={styles.code}>pages/index.tsx</code>
-        </p>
+      <div style={{ display: 'flex', justifyContent: 'end' }}>
+        <ButtonGroup>
+          <Button intent={Intent.PRIMARY} icon="refresh" onClick={refresh} loading={isLoading}>
+            Refresh
+          </Button>
+          {createButton}
+        </ButtonGroup>
+      </div>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a href="https://github.com/vercel/next.js/tree/canary/examples" className={styles.card}>
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
+      <HTMLTable className={styles.table} striped>
+        <thead>
+          <tr>
+            <th scope="col" className={styles.heading}>
+              Summary
+            </th>
+            <th scope="col" className={styles.heading}>
+              Complete
+            </th>
+            <th scope="col" className={styles.heading}>
+              Tags
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {isLoading && (
+            <tr>
+              <td colSpan={3}>
+                <Loading />
+              </td>
+            </tr>
+          )}
+          {data !== undefined && data.length === 0 && (
+            <tr>
+              <td colSpan={3}>
+                <NonIdealState
+                  title="No todos yet!"
+                  description="Get started by creating one below"
+                  action={createButton}
+                />
+              </td>
+            </tr>
+          )}
+          {data !== undefined &&
+            data.map((todo) => (
+              <tr key={todo.id}>
+                <td>
+                  <Link href={`/todos/${todo.id}`}>{todo.summary}</Link>
+                </td>
+                <td>
+                  <Tag round intent={todo.complete ? Intent.SUCCESS : Intent.DANGER}>
+                    {todo.complete ? 'Complete' : 'Incomplete'}
+                  </Tag>
+                </td>
+                <td>
+                  {todo.tags.map((tag) => (
+                    <Tag key={tag}>{tag}</Tag>
+                  ))}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </HTMLTable>
+    </Card>
   );
 };
 
-export default Home;
+export default Todos;
