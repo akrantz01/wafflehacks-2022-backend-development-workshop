@@ -12,7 +12,15 @@ def render(list):
     return jsonify(
         id=list.id,
         name=list.name,
-        todos=[{"id": todo.id, "summary": todo.summary, "complete": todo.complete} for todo in list.todos],
+        todos=[
+            {
+                "id": todo.id,
+                "summary": todo.summary,
+                "complete": todo.complete,
+                "tags": [t.name for t in todo.tags],
+            }
+            for todo in list.todos
+        ],
     )
 
 
