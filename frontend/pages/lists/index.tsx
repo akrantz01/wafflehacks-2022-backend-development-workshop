@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import type { Page } from '../lib/page';
-import { ReducedList } from '../lib/types';
-import TableView, { RowProps } from '../views/TableView';
+import type { Page } from '../../lib/page';
+import { ReducedList } from '../../lib/types';
+import TableView, { RowProps } from '../../views/TableView';
 
 const Row = ({ item }: RowProps<ReducedList>): JSX.Element => (
   <tr>
