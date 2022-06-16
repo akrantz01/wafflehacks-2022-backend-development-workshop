@@ -19,7 +19,6 @@ def all():
                 "id": todo.id,
                 "summary": todo.summary,
                 "complete": todo.complete,
-                "list_id": todo.list_id,
             }
             for todo in Todo.query.all()
         ]
