@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 
-const fetcher = (input: RequestInfo, init: RequestInit) => fetch(input, init).then((res) => res.json());
+const fetcher = (domain: string) => (path: string, init: RequestInit) =>
+  fetch(`https://${domain}${path}`, init).then((res) => res.json());
 
 interface Response<T> {
   data?: T;
@@ -11,7 +12,7 @@ interface Response<T> {
 }
 
 const useFetch = <T>(domain: string, path: string): Response<T> => {
-  const { data, error, mutate } = useSWR<T, Error>(`https://${domain}${path}`, fetcher);
+  const { data, error, mutate } = useSWR<T, Error>(path, fetcher(domain));
 
   return {
     data,

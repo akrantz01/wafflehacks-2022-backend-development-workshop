@@ -28,6 +28,7 @@ const FullRow = ({ children, span }: FullRowProps): JSX.Element => (
 );
 
 export interface RowProps<T> {
+  domain: string;
   item: T;
 }
 
@@ -88,7 +89,7 @@ const TableView = <T,>({ domain, objectType, headings, generateRowKey, Row }: Pr
               />
             </FullRow>
           )}
-          {data !== undefined && data.map((e) => <Row key={generateRowKey(e)} item={e} />)}
+          {data !== undefined && data.map((e) => <Row key={generateRowKey(e)} domain={domain} item={e} />)}
         </tbody>
       </HTMLTable>
     </Card>
