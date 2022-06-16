@@ -1,7 +1,21 @@
 import useSWR from 'swr';
 
-const fetcher = (domain: string) => (path: string, init: RequestInit) =>
-  fetch(`https://${domain}${path}`, init).then((res) => res.json());
+class FetchError extends Error {
+  public readonly status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
+const fetcher = (domain: string) => async (path: string, init: RequestInit) => {
+  const response = await fetch(`https://${domain}${path}`, init);
+  const body = await response.json();
+
+  if (response.ok) return body;
+  else throw new FetchError(body.message, response.status);
+};
 
 interface Response<T> {
   data?: T;
