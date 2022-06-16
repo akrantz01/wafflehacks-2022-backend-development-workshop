@@ -1,3 +1,17 @@
+.card {
+    margin: auto;
+    width: 50%;
+}
+
+.title {
+    text-transform: capitalize;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .heading {
     text-align: left;
     font-size: small;
