@@ -1,8 +1,8 @@
 import { Intent, Tag } from '@blueprintjs/core';
 import Link from 'next/link';
 
-import type { Page } from '../../lib/page';
-import DetailView from '../../views/DetailView';
+import type { Page } from 'lib/page';
+import DetailView from 'views/DetailView';
 
 const TodoDetail: Page = ({ domain }) => (
   <DetailView

@@ -12,8 +12,9 @@ import {
 import Link from 'next/link';
 import React, { ElementType, ReactNode } from 'react';
 
-import Table from '../../components/Table';
-import useFetch from '../../lib/useFetch';
+import Table from 'components/Table';
+import useFetch from 'lib/useFetch';
+
 import styles from './table.module.css';
 
 interface FullRowProps {

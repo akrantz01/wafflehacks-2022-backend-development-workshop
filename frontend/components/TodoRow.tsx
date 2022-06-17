@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 
-import { ReducedTodo } from '../lib/types';
-import { RowProps } from '../views/TableView/TableView';
+import { ReducedTodo } from 'lib/types';
+import { RowProps } from 'views/TableView';
 
 interface Props extends RowProps<ReducedTodo> {
   cacheKey?: string;

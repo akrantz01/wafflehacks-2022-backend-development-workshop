@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 
-import Table from '../../components/Table';
-import TodoRow from '../../components/TodoRow';
-import type { Page } from '../../lib/page';
-import { Tag } from '../../lib/types';
-import DetailView from '../../views/DetailView';
+import Table from 'components/Table';
+import TodoRow from 'components/TodoRow';
+import type { Page } from 'lib/page';
+import { Tag } from 'lib/types';
+import DetailView from 'views/DetailView';
 
 const TagDetail: Page = ({ domain }) => {
   const { query } = useRouter();

@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
-import useFetch from '../../lib/useFetch';
+import useFetch from 'lib/useFetch';
+
 import styles from './detail.module.css';
 
 interface ItemProps {
