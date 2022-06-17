@@ -5,6 +5,7 @@ from typing import List as ListT, Optional
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import event
+from sqlalchemy.exc import IntegrityError
 
 db = SQLAlchemy()
 
@@ -35,7 +36,14 @@ def init_db(app):
     if reset == "1" or reset == "y" or reset == "t":
         db.drop_all(app=app)
 
-    db.create_all(app=app)
+    try:
+        db.create_all(app=app)
+    except IntegrityError:
+        # We want to ignore integrity errors that happen upon database creation because
+        # it probably means the other work succeeded in the creation. This can be resolved by
+        # using a tool like Alembic (https://alembic.sqlalchemy.org/en/latest/) to manage your
+        # database schema updates, rather than SQLAlchemy.
+        pass
 
 
 tags_todos_link = db.Table(
