@@ -23,31 +23,32 @@ const Item = ({ label, children }: ItemProps): JSX.Element => (
 interface SkeletonProps {
   hasDescription: boolean;
   fields: string[];
-  returnTo: string;
 }
 
-const Skeleton = ({ hasDescription, fields, returnTo }: SkeletonProps): JSX.Element => (
-  <Card className={styles.card} elevation={Elevation.ONE}>
-    <H2 className={Classes.SKELETON}>Loading...</H2>
-    {hasDescription && <p className={classNames(Classes.SKELETON, styles.description)}>Loading...</p>}
+const Skeleton = ({ hasDescription, fields }: SkeletonProps): JSX.Element => {
+  const router = useRouter();
 
-    <div className={styles.fields}>
-      {fields.map((f) => (
-        <Item key={f} label={f}>
-          <p className={Classes.SKELETON}>Loading...</p>
-        </Item>
-      ))}
-    </div>
+  return (
+    <Card className={styles.card} elevation={Elevation.ONE}>
+      <H2 className={Classes.SKELETON}>Loading...</H2>
+      {hasDescription && <p className={classNames(Classes.SKELETON, styles.description)}>Loading...</p>}
 
-    <div className={styles.footer}>
-      <Link href={returnTo} passHref>
-        <AnchorButton intent={Intent.PRIMARY} icon="arrow-left">
+      <div className={styles.fields}>
+        {fields.map((f) => (
+          <Item key={f} label={f}>
+            <p className={Classes.SKELETON}>Loading...</p>
+          </Item>
+        ))}
+      </div>
+
+      <div className={styles.footer}>
+        <Button onClick={router.back} intent={Intent.PRIMARY} icon="arrow-left">
           Back
-        </AnchorButton>
-      </Link>
-    </div>
-  </Card>
-);
+        </Button>
+      </div>
+    </Card>
+  );
+};
 
 interface Field<T> {
   name: string;
@@ -58,7 +59,6 @@ interface Field<T> {
 
 interface Props<T> {
   domain: string;
-  returnTo: string;
   titleKey: keyof T;
   descriptionKey?: keyof T;
   objectType: string;
@@ -73,18 +73,15 @@ const DetailView = <T extends Record<string, any>>({
   descriptionKey,
   objectType,
   fields = [],
-  returnTo,
   children,
 }: Props<T>): JSX.Element => {
-  const { query } = useRouter();
+  const { query, back } = useRouter();
   const { id } = query;
 
   const { data, isLoading, isError } = useFetch<T>(domain, `/${objectType}s/${id}`);
 
   if (isLoading) {
-    return (
-      <Skeleton hasDescription={descriptionKey !== undefined} fields={fields.map((f) => f.name)} returnTo={returnTo} />
-    );
+    return <Skeleton hasDescription={descriptionKey !== undefined} fields={fields.map((f) => f.name)} />;
   }
   if (isError || data === undefined) {
     const capitalized = objectType.charAt(0).toUpperCase() + objectType.slice(1);
@@ -113,11 +110,9 @@ const DetailView = <T extends Record<string, any>>({
       {children && <div className={styles.extra}>{children(data)}</div>}
 
       <div className={styles.footer}>
-        <Link href={returnTo} passHref>
-          <AnchorButton intent={Intent.PRIMARY} icon="arrow-left">
-            Back
-          </AnchorButton>
-        </Link>
+        <Button onClick={back} intent={Intent.PRIMARY} icon="arrow-left">
+          Back
+        </Button>
         <Button intent={Intent.DANGER} icon="trash">
           Delete
         </Button>

@@ -7,7 +7,6 @@ import DetailView from 'views/DetailView';
 const TodoDetail: Page = ({ domain }) => (
   <DetailView
     domain={domain}
-    returnTo="/"
     titleKey="summary"
     descriptionKey="description"
     objectType="todo"

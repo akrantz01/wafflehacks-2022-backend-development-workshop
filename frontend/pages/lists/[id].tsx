@@ -11,7 +11,7 @@ const ListDetail: Page = ({ domain }) => {
   const { id } = query;
 
   return (
-    <DetailView domain={domain} returnTo="/lists" titleKey="name" objectType="list">
+    <DetailView domain={domain} titleKey="name" objectType="list">
       {(item: List) => (
         <Table headings={['Summary', 'Complete', 'Tags']}>
           {item.todos.map((t) => (
