@@ -1,0 +1,25 @@
+.card {
+    margin: auto;
+    width: 50%;
+}
+
+.description {
+    font-size: medium;
+}
+
+.fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.extra {
+    margin-top: 1rem;
+}
+
+.footer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+}

@@ -5,7 +5,6 @@ import {
   Card,
   Elevation,
   H2,
-  HTMLTable,
   Intent,
   NonIdealState,
   Spinner,
@@ -13,6 +12,7 @@ import {
 import Link from 'next/link';
 import React, { ElementType, ReactNode } from 'react';
 
+import Table from '../components/Table';
 import useFetch from '../lib/useFetch';
 import styles from './table.module.css';
 
@@ -64,34 +64,23 @@ const TableView = <T,>({ domain, objectType, headings, generateRowKey, Row }: Pr
         </ButtonGroup>
       </div>
 
-      <HTMLTable className={styles.table} striped>
-        <thead>
-          <tr>
-            {headings.map((heading) => (
-              <th key={heading} scope="col" className={styles.heading}>
-                {heading}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {isLoading && (
-            <FullRow span={headings.length}>
-              <Spinner size={50} />
-            </FullRow>
-          )}
-          {data !== undefined && data.length === 0 && (
-            <FullRow span={headings.length}>
-              <NonIdealState
-                title={`No ${objectType} yet!`}
-                description="Get started by creating one below"
-                action={createButton}
-              />
-            </FullRow>
-          )}
-          {data !== undefined && data.map((e) => <Row key={generateRowKey(e)} domain={domain} item={e} />)}
-        </tbody>
-      </HTMLTable>
+      <Table headings={headings}>
+        {isLoading && (
+          <FullRow span={headings.length}>
+            <Spinner size={50} />
+          </FullRow>
+        )}
+        {data !== undefined && data.length === 0 && (
+          <FullRow span={headings.length}>
+            <NonIdealState
+              title={`No ${objectType} yet!`}
+              description="Get started by creating one below"
+              action={createButton}
+            />
+          </FullRow>
+        )}
+        {data !== undefined && data.map((e) => <Row key={generateRowKey(e)} domain={domain} item={e} />)}
+      </Table>
     </Card>
   );
 };

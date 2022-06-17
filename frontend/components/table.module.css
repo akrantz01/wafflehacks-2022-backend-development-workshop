@@ -1,0 +1,11 @@
+.table {
+    min-width: 100%;
+}
+
+.heading {
+    text-align: left;
+    font-size: small;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0.875rem 0.75rem;
+}
