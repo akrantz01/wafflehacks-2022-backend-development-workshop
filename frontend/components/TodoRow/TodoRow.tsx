@@ -6,6 +6,8 @@ import { useSWRConfig } from 'swr';
 import { ReducedTodo } from 'lib/types';
 import { RowProps } from 'views/TableView';
 
+import styles from './row.module.css';
+
 interface Props extends RowProps<ReducedTodo> {
   cacheKey?: string;
 }
@@ -37,7 +39,9 @@ const TodoRow = ({ cacheKey = '/todos', item, domain }: Props): JSX.Element => {
       </td>
       <td>
         {item.tags.map((tag) => (
-          <Tag key={tag}>{tag}</Tag>
+          <Link key={tag} href={`/tags/${tag}`}>
+            <Tag className={styles.tag}>{tag}</Tag>
+          </Link>
         ))}
       </td>
     </tr>

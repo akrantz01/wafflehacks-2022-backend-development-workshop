@@ -1,0 +1,7 @@
+.tag {
+    cursor: pointer;
+}
+
+.tag:hover {
+    background-color: #444952;
+}
