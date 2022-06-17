@@ -1,11 +1,11 @@
-import { AnchorButton, Button, Card, Classes, Elevation, H2, Intent, NonIdealState } from '@blueprintjs/core';
+import { Button, Card, Classes, Elevation, H2, Intent, NonIdealState } from '@blueprintjs/core';
 import classNames from 'classnames';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
 import useFetch from 'lib/useFetch';
 
+import BackButton from '../../components/BackButton';
 import styles from './detail.module.css';
 
 interface ItemProps {
@@ -25,30 +25,24 @@ interface SkeletonProps {
   fields: string[];
 }
 
-const Skeleton = ({ hasDescription, fields }: SkeletonProps): JSX.Element => {
-  const router = useRouter();
+const Skeleton = ({ hasDescription, fields }: SkeletonProps): JSX.Element => (
+  <Card className={styles.card} elevation={Elevation.ONE}>
+    <H2 className={Classes.SKELETON}>Loading...</H2>
+    {hasDescription && <p className={classNames(Classes.SKELETON, styles.description)}>Loading...</p>}
 
-  return (
-    <Card className={styles.card} elevation={Elevation.ONE}>
-      <H2 className={Classes.SKELETON}>Loading...</H2>
-      {hasDescription && <p className={classNames(Classes.SKELETON, styles.description)}>Loading...</p>}
+    <div className={styles.fields}>
+      {fields.map((f) => (
+        <Item key={f} label={f}>
+          <p className={Classes.SKELETON}>Loading...</p>
+        </Item>
+      ))}
+    </div>
 
-      <div className={styles.fields}>
-        {fields.map((f) => (
-          <Item key={f} label={f}>
-            <p className={Classes.SKELETON}>Loading...</p>
-          </Item>
-        ))}
-      </div>
-
-      <div className={styles.footer}>
-        <Button onClick={router.back} intent={Intent.PRIMARY} icon="arrow-left">
-          Back
-        </Button>
-      </div>
-    </Card>
-  );
-};
+    <div className={styles.footer}>
+      <BackButton />
+    </div>
+  </Card>
+);
 
 interface Field<T> {
   name: string;
@@ -75,7 +69,7 @@ const DetailView = <T extends Record<string, any>>({
   fields = [],
   children,
 }: Props<T>): JSX.Element => {
-  const { query, back } = useRouter();
+  const { query } = useRouter();
   const { id } = query;
 
   const { data, isLoading, isError } = useFetch<T>(domain, `/${objectType}s/${id}`);
@@ -110,9 +104,7 @@ const DetailView = <T extends Record<string, any>>({
       {children && <div className={styles.extra}>{children(data)}</div>}
 
       <div className={styles.footer}>
-        <Button onClick={back} intent={Intent.PRIMARY} icon="arrow-left">
-          Back
-        </Button>
+        <BackButton />
         <Button intent={Intent.DANGER} icon="trash">
           Delete
         </Button>
