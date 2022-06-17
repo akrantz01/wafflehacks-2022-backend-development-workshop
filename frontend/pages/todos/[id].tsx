@@ -1,4 +1,5 @@
 import { Intent, Tag } from '@blueprintjs/core';
+import Link from 'next/link';
 
 import type { Page } from '../../lib/page';
 import DetailView from '../../views/DetailView';
@@ -19,6 +20,13 @@ const TodoDetail: Page = ({ domain }) => (
         ),
       },
       { name: 'Tags', key: 'tags', render: (item: string[]) => item.map((t) => <Tag key={t}>{t}</Tag>) },
+      {
+        name: 'List',
+        key: 'list_id',
+        render: (item: string | null) => (
+          <p style={{ fontSize: 'small' }}>{item ? <Link href={`/lists/${item}`}>View</Link> : 'N/A'}</p>
+        ),
+      },
     ]}
   />
 );
