@@ -1,0 +1,13 @@
+.card {
+    margin: auto;
+    width: 50%;
+}
+
+.form {
+    margin-top: 1rem;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}

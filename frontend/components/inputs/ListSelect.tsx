@@ -1,6 +1,6 @@
 import { FormGroup, HTMLSelect } from '@blueprintjs/core';
 import { useField } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { ReducedList } from 'lib/types';
 import useFetch from 'lib/useFetch';

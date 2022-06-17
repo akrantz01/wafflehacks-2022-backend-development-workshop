@@ -12,7 +12,14 @@ const Row = ({ item }: RowProps<string>): JSX.Element => (
 );
 
 const Tags: Page = ({ domain }): JSX.Element => (
-  <TableView domain={domain} objectType="tags" headings={['Name']} generateRowKey={(e: string) => e} Row={Row} />
+  <TableView
+    domain={domain}
+    objectType="tags"
+    headings={['Name']}
+    generateRowKey={(e: string) => e}
+    disableCreation
+    Row={Row}
+  />
 );
 
 export default Tags;

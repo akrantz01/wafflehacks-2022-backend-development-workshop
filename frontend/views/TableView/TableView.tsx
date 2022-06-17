@@ -38,10 +38,18 @@ interface Props<T> {
   objectType: string;
   headings: string[];
   generateRowKey: (e: T) => string | number;
+  disableCreation?: boolean;
   Row: ElementType<RowProps<T>>;
 }
 
-const TableView = <T,>({ domain, objectType, headings, generateRowKey, Row }: Props<T>): JSX.Element => {
+const TableView = <T,>({
+  domain,
+  objectType,
+  headings,
+  generateRowKey,
+  disableCreation,
+  Row,
+}: Props<T>): JSX.Element => {
   const { data, isLoading, refresh } = useFetch<T[]>(domain, '/' + objectType);
 
   const createButton = (
@@ -61,7 +69,7 @@ const TableView = <T,>({ domain, objectType, headings, generateRowKey, Row }: Pr
           <Button intent={Intent.PRIMARY} icon="refresh" onClick={refresh} loading={isLoading}>
             Refresh
           </Button>
-          {createButton}
+          {!disableCreation && createButton}
         </ButtonGroup>
       </div>
 
