@@ -94,7 +94,7 @@ def update(id):
 
     list_id = request.json.get("list", _Sentinel())
     if type(list_id) != _Sentinel:
-        if List.query.get(list_id) is None:
+        if list_id is not None and List.query.get(list_id) is None:
             return jsonify(message="list does not exist"), HTTPStatus.BAD_REQUEST
 
         todo.list_id = list_id
