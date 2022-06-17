@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useSWRConfig } from 'swr';
 
 import { ReducedTodo } from '../lib/types';
-import { RowProps } from '../views/TableView';
+import { RowProps } from '../views/TableView/TableView';
 
 interface Props extends RowProps<ReducedTodo> {
   cacheKey?: string;

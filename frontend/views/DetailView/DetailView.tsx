@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
-import useFetch from '../lib/useFetch';
+import useFetch from '../../lib/useFetch';
 import styles from './detail.module.css';
 
 interface ItemProps {
@@ -13,8 +13,8 @@ interface ItemProps {
 }
 
 const Item = ({ label, children }: ItemProps): JSX.Element => (
-  <div style={{ fontSize: 'medium' }}>
-    <p style={{ fontWeight: 350 }}>{label}</p>
+  <div className={styles.item}>
+    <p className={styles.itemLabel}>{label}</p>
     {children}
   </div>
 );
