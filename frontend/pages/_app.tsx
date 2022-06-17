@@ -28,7 +28,6 @@ const App = ({ Component, pageProps }: AppProps) => {
           name="description"
           content="A UI for testing the todo list API from the WaffleHacks 2022 backend development workshop"
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Navbar>
