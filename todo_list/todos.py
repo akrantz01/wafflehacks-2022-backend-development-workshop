@@ -49,7 +49,6 @@ def create():
     summary = request.json.get("summary")
     description = request.json.get("description")
     list_id = request.json.get("list")
-    tag_names = request.json.get("tags")
 
     # Check all required fields are present
     if summary is None:
