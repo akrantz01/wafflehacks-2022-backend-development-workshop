@@ -3,22 +3,11 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
+import BackButton from 'components/BackButton';
+import { Grid, Item } from 'components/Grid';
 import useFetch from 'lib/useFetch';
 
-import BackButton from '../../components/BackButton';
 import styles from './detail.module.css';
-
-interface ItemProps {
-  label: string;
-  children: ReactNode;
-}
-
-const Item = ({ label, children }: ItemProps): JSX.Element => (
-  <div className={styles.item}>
-    <p className={styles.itemLabel}>{label}</p>
-    {children}
-  </div>
-);
 
 interface SkeletonProps {
   hasDescription: boolean;
@@ -94,11 +83,13 @@ const DetailView = <T extends Record<string, any>>({
       {descriptionKey !== undefined && <p className={styles.description}>{data[descriptionKey]}</p>}
 
       <div className={styles.fields}>
-        {fields.map((f) => (
-          <Item key={f.name} label={f.name}>
-            {f.render(data[f.key])}
-          </Item>
-        ))}
+        <Grid>
+          {fields.map((f) => (
+            <Item key={f.name} label={f.name}>
+              {f.render(data[f.key])}
+            </Item>
+          ))}
+        </Grid>
       </div>
 
       {children && <div className={styles.extra}>{children(data)}</div>}
