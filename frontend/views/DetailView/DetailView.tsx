@@ -1,5 +1,6 @@
-import { Button, Card, Classes, Elevation, H2, Intent, NonIdealState } from '@blueprintjs/core';
+import { AnchorButton, Button, Card, Classes, Elevation, H2, Intent, NonIdealState } from '@blueprintjs/core';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
@@ -45,6 +46,7 @@ interface Props<T> {
   titleKey: keyof T;
   descriptionKey?: keyof T;
   objectType: string;
+  disableEdit?: boolean;
   fields?: Field<T>[];
   children?: (item: T) => ReactNode;
 }
@@ -55,6 +57,7 @@ const DetailView = <T extends Record<string, any>>({
   titleKey,
   descriptionKey,
   objectType,
+  disableEdit,
   fields = [],
   children,
 }: Props<T>): JSX.Element => {
@@ -72,14 +75,23 @@ const DetailView = <T extends Record<string, any>>({
       <NonIdealState
         icon="help"
         title={`${capitalized} not found`}
-        description="We couldn't find a todo with that ID. Please check it is correct and try again."
+        description={`We couldn't find a ${objectType} with that ID. Please check it is correct and try again.`}
       />
     );
   }
 
   return (
     <Card className={styles.card} elevation={Elevation.ONE}>
-      <H2>{data[titleKey]}</H2>
+      <div className={styles.heading}>
+        <H2>{data[titleKey]}</H2>
+        {!disableEdit && (
+          <Link href={`/${objectType}s/${id}/edit`} passHref>
+            <AnchorButton intent={Intent.PRIMARY} icon="edit" small style={{ maxHeight: '2rem' }}>
+              Edit
+            </AnchorButton>
+          </Link>
+        )}
+      </div>
       {descriptionKey !== undefined && <p className={styles.description}>{data[descriptionKey]}</p>}
 
       <div className={styles.fields}>

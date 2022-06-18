@@ -3,6 +3,11 @@
     width: 50%;
 }
 
+.heading {
+    display: flex;
+    justify-content: space-between;
+}
+
 .description {
     font-size: medium;
 }

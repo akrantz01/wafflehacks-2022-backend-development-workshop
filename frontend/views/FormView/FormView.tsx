@@ -1,4 +1,4 @@
-import { Button, Card, FormGroup, H2, InputGroup, Intent, TextArea } from '@blueprintjs/core';
+import { Button, Card, FormGroup, H2, InputGroup, Intent, Switch, TextArea } from '@blueprintjs/core';
 import { FieldInputProps, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
@@ -29,10 +29,15 @@ interface LongField<T> extends CannedField<T> {
   type: 'long';
 }
 
-type Field<T> = CustomField<T> | ShortField<T> | LongField<T>;
+interface SwitchField<T> extends CannedField<T> {
+  type: 'switch';
+}
+
+type Field<T> = CustomField<T> | ShortField<T> | LongField<T> | SwitchField<T>;
 
 interface Props<T> {
-  domain: string;
+  url: string;
+  method?: 'POST' | 'PATCH';
   objectType: string;
   initialValues: T;
   transformBody?: (values: T) => Record<string, unknown>;
@@ -41,7 +46,8 @@ interface Props<T> {
 }
 
 const FormView = <T extends Record<string, unknown>>({
-  domain,
+  url,
+  method = 'POST',
   objectType,
   initialValues,
   transformBody = (v: T) => v,
@@ -51,8 +57,8 @@ const FormView = <T extends Record<string, unknown>>({
   const router = useRouter();
 
   const onSubmit = async (values: T) => {
-    await fetch(`https://${domain}/${objectType}s`, {
-      method: 'POST',
+    await fetch(url, {
+      method,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -87,6 +93,17 @@ const FormView = <T extends Record<string, unknown>>({
                       <FormGroup label={f.label} labelInfo={required} labelFor={id}>
                         <TextArea id={id} fill {...getFieldProps(f.key)} />
                       </FormGroup>
+                    );
+                  case 'switch':
+                    const props = getFieldProps(f.key);
+                    return (
+                      <Switch
+                        id={id}
+                        label={f.label}
+                        required={f.required}
+                        checked={props.checked}
+                        onChange={props.onChange}
+                      />
                     );
                 }
               })}

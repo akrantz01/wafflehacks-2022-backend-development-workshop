@@ -13,7 +13,7 @@ const initialValues: Input = {
 
 const New: Page = ({ domain }) => (
   <FormView
-    domain={domain}
+    url={`https://${domain}/lists`}
     objectType="list"
     initialValues={initialValues}
     fields={[

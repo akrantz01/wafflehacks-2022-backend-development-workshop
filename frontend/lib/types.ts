@@ -22,6 +22,6 @@ export interface ReducedTodo {
 }
 
 export interface Todo extends ReducedTodo {
-  description: string;
+  description: string | null;
   list_id: number | null;
 }

@@ -11,7 +11,7 @@ const TagDetail: Page = ({ domain }) => {
   const { id } = query;
 
   return (
-    <DetailView domain={domain} titleKey="name" objectType="tag">
+    <DetailView domain={domain} titleKey="name" objectType="tag" disableEdit>
       {(item: Tag) => (
         <Table headings={['Summary', 'Complete', 'Tags']}>
           {item.todos.map((t) => (
