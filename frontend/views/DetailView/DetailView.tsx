@@ -1,4 +1,4 @@
-import { AnchorButton, Card, Classes, Elevation, H2, Intent, NonIdealState } from '@blueprintjs/core';
+import { AnchorButton, Classes, H2, Intent, NonIdealState } from '@blueprintjs/core';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -6,6 +6,7 @@ import React, { ReactNode } from 'react';
 import { KeyedMutator } from 'swr';
 
 import BackButton from 'components/BackButton';
+import Card from 'components/Card';
 import DeleteButton from 'components/DeleteButton';
 import { Grid, Item } from 'components/Grid';
 import useFetch from 'lib/useFetch';
@@ -18,7 +19,7 @@ interface SkeletonProps {
 }
 
 const Skeleton = ({ hasDescription, fields }: SkeletonProps): JSX.Element => (
-  <Card className={styles.card} elevation={Elevation.ONE}>
+  <Card>
     <H2 className={Classes.SKELETON}>Loading...</H2>
     {hasDescription && <p className={classNames(Classes.SKELETON, styles.description)}>Loading...</p>}
 
@@ -85,7 +86,7 @@ const DetailView = <T extends Record<string, any>>({
   }
 
   return (
-    <Card className={styles.card} elevation={Elevation.ONE}>
+    <Card>
       <div className={styles.heading}>
         <H2>{data[titleKey]}</H2>
         {!disableEdit && (

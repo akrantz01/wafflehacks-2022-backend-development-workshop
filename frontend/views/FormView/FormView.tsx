@@ -1,9 +1,10 @@
-import { Button, Card, FormGroup, H2, InputGroup, Intent, Switch, TextArea } from '@blueprintjs/core';
+import { Button, FormGroup, H2, InputGroup, Intent, Switch, TextArea } from '@blueprintjs/core';
 import { FieldInputProps, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
 import BackButton from 'components/BackButton';
+import Card from 'components/Card';
 import { Grid } from 'components/Grid';
 import { buildUrl } from 'lib/url';
 
@@ -72,7 +73,7 @@ const FormView = <T extends Record<string, unknown>>({
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ getFieldProps, isSubmitting, submitForm }) => (
-        <Card className={styles.card}>
+        <Card>
           <H2>New {objectType.charAt(0).toUpperCase() + objectType.slice(1)}</H2>
 
           <Form className={styles.form}>

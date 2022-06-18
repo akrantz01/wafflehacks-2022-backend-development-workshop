@@ -1,17 +1,8 @@
-import {
-  AnchorButton,
-  Button,
-  ButtonGroup,
-  Card,
-  Elevation,
-  H2,
-  Intent,
-  NonIdealState,
-  Spinner,
-} from '@blueprintjs/core';
+import { AnchorButton, Button, ButtonGroup, H2, Intent, NonIdealState, Spinner } from '@blueprintjs/core';
 import Link from 'next/link';
 import React, { ElementType, ReactNode } from 'react';
 
+import Card from 'components/Card';
 import Table from 'components/Table';
 import useFetch from 'lib/useFetch';
 
@@ -52,7 +43,7 @@ const TableView = <T,>({ objectType, headings, generateRowKey, disableCreation, 
   );
 
   return (
-    <Card className={styles.card} elevation={Elevation.ONE}>
+    <Card>
       <H2 className={styles.title}>{objectType}</H2>
 
       <div className={styles.actions}>
