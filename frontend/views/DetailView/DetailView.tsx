@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
 import BackButton from 'components/BackButton';
+import DeleteButton from 'components/DeleteButton';
 import { Grid, Item } from 'components/Grid';
 import useFetch from 'lib/useFetch';
 
@@ -108,9 +109,7 @@ const DetailView = <T extends Record<string, any>>({
 
       <div className={styles.footer}>
         <BackButton />
-        <Button intent={Intent.DANGER} icon="trash">
-          Delete
-        </Button>
+        <DeleteButton url={`https://${domain}/${objectType}s/${id}`} />
       </div>
     </Card>
   );
