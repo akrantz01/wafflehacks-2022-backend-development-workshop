@@ -29,7 +29,7 @@ const Edit: NextPage = () => {
 
   return (
     <FormView
-      url={buildUrl(`/todos/${id}`)}
+      path={buildUrl(`/todos/${id}`)}
       method="PATCH"
       objectType="todo"
       initialValues={data}

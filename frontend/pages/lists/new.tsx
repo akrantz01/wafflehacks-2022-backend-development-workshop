@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 
 import { List } from 'lib/types';
-import { buildUrl } from 'lib/url';
 import FormView from 'views/FormView';
 
 type Input = Pick<List, 'name'> & {
@@ -15,7 +14,7 @@ const initialValues: Input = {
 
 const New: NextPage = () => (
   <FormView
-    url={buildUrl('/lists')}
+    path="/lists"
     objectType="list"
     initialValues={initialValues}
     fields={[

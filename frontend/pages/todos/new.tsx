@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 
 import { ListSelectInput } from 'components/inputs';
 import { Todo } from 'lib/types';
-import { buildUrl } from 'lib/url';
 import FormView from 'views/FormView';
 
 type Input = Pick<Todo, 'summary' | 'list_id'> & {
@@ -23,7 +22,7 @@ const transformer = (v: Input) => ({
 
 const New: NextPage = () => (
   <FormView
-    url={buildUrl('/todos')}
+    path="/todos"
     objectType="todo"
     initialValues={initialValues}
     fields={[

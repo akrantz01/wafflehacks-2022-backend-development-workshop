@@ -28,7 +28,7 @@ const Edit: NextPage = () => {
 
   return (
     <FormView
-      url={buildUrl(`/lists/${id}`)}
+      path={buildUrl(`/lists/${id}`)}
       method="PATCH"
       objectType="list"
       initialValues={data}

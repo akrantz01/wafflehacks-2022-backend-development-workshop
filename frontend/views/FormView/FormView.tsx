@@ -3,8 +3,10 @@ import { FieldInputProps, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 
-import BackButton from '../../components/BackButton';
-import { Grid } from '../../components/Grid';
+import BackButton from 'components/BackButton';
+import { Grid } from 'components/Grid';
+import { buildUrl } from 'lib/url';
+
 import styles from './form.module.css';
 
 interface BaseField<T> {
@@ -36,7 +38,7 @@ interface SwitchField<T> extends CannedField<T> {
 type Field<T> = CustomField<T> | ShortField<T> | LongField<T> | SwitchField<T>;
 
 interface Props<T> {
-  url: string;
+  path: string;
   method?: 'POST' | 'PATCH';
   objectType: string;
   initialValues: T;
@@ -46,7 +48,7 @@ interface Props<T> {
 }
 
 const FormView = <T extends Record<string, unknown>>({
-  url,
+  path,
   method = 'POST',
   objectType,
   initialValues,
@@ -57,7 +59,7 @@ const FormView = <T extends Record<string, unknown>>({
   const router = useRouter();
 
   const onSubmit = async (values: T) => {
-    await fetch(url, {
+    await fetch(buildUrl(path), {
       method,
       headers: {
         'Content-Type': 'application/json',
