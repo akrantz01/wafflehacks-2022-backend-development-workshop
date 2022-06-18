@@ -4,9 +4,12 @@ import Link from 'next/link';
 import type { Page } from 'lib/page';
 import DetailView from 'views/DetailView';
 
+import Status from '../../../components/Status';
+
 const TodoDetail: Page = ({ domain }) => (
   <DetailView
     domain={domain}
+    idKey="id"
     titleKey="summary"
     descriptionKey="description"
     objectType="todo"
@@ -14,9 +17,7 @@ const TodoDetail: Page = ({ domain }) => (
       {
         name: 'Status',
         key: 'complete',
-        render: (item: boolean) => (
-          <Tag intent={item ? Intent.SUCCESS : Intent.DANGER}>{item ? 'Complete' : 'Incomplete'}</Tag>
-        ),
+        render: (item: boolean, id) => <Status complete={item} domain={domain} id={id} invalidates={`/todos/${id}`} />,
       },
       { name: 'Tags', key: 'tags', render: (item: string[]) => item.map((t) => <Tag key={t}>{t}</Tag>) },
       {

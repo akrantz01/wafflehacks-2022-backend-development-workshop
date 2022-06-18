@@ -11,11 +11,11 @@ const TagDetail: Page = ({ domain }) => {
   const { id } = query;
 
   return (
-    <DetailView domain={domain} titleKey="name" objectType="tag" disableEdit>
+    <DetailView domain={domain} idKey="name" titleKey="name" objectType="tag" disableEdit>
       {(item: Tag) => (
         <Table headings={['Summary', 'Complete', 'Tags']}>
           {item.todos.map((t) => (
-            <TodoRow key={t.id} cacheKey={`/tags/${id}`} domain={domain} item={t} />
+            <TodoRow key={t.id} invalidates={`/tags/${id}`} domain={domain} item={t} />
           ))}
         </Table>
       )}

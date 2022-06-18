@@ -1,4 +1,4 @@
-import { AnchorButton, Button, Card, Classes, Elevation, H2, Intent, NonIdealState } from '@blueprintjs/core';
+import { AnchorButton, Card, Classes, Elevation, H2, Intent, NonIdealState } from '@blueprintjs/core';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -36,15 +36,18 @@ const Skeleton = ({ hasDescription, fields }: SkeletonProps): JSX.Element => (
   </Card>
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RenderFunc = (item: any, id: string | number) => ReactNode;
+
 interface Field<T> {
   name: string;
   key: keyof T;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  render: (item: any) => ReactNode;
+  render: RenderFunc;
 }
 
 interface Props<T> {
   domain: string;
+  idKey: keyof T;
   titleKey: keyof T;
   descriptionKey?: keyof T;
   objectType: string;
@@ -56,6 +59,7 @@ interface Props<T> {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DetailView = <T extends Record<string, any>>({
   domain,
+  idKey,
   titleKey,
   descriptionKey,
   objectType,
@@ -100,7 +104,7 @@ const DetailView = <T extends Record<string, any>>({
         <Grid>
           {fields.map((f) => (
             <Item key={f.name} label={f.name}>
-              {f.render(data[f.key])}
+              {f.render(data[f.key], data[idKey])}
             </Item>
           ))}
         </Grid>
