@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR, { KeyedMutator } from 'swr';
 
 import { buildUrl } from './url';
 
@@ -25,6 +25,7 @@ interface Response<T> {
   isLoading: boolean;
   isError: boolean;
   refresh: () => void;
+  mutate: KeyedMutator<T>;
 }
 
 const useFetch = <T>(domain: string, path: string): Response<T> => {
@@ -36,6 +37,7 @@ const useFetch = <T>(domain: string, path: string): Response<T> => {
     isLoading: !data && !error,
     isError: !!error,
     refresh: () => mutate(),
+    mutate,
   };
 };
 

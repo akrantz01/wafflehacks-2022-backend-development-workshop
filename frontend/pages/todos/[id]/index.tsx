@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Page } from 'lib/page';
 import DetailView from 'views/DetailView';
 
+import { TagsInput } from '../../../components/inputs';
 import Status from '../../../components/Status';
 
 const TodoDetail: Page = ({ domain }) => (
@@ -19,7 +20,11 @@ const TodoDetail: Page = ({ domain }) => (
         key: 'complete',
         render: (item: boolean, id) => <Status complete={item} domain={domain} id={id} invalidates={`/todos/${id}`} />,
       },
-      { name: 'Tags', key: 'tags', render: (item: string[]) => item.map((t) => <Tag key={t}>{t}</Tag>) },
+      {
+        name: 'Tags',
+        key: 'tags',
+        render: (item: string[], id, mutate) => <TagsInput domain={domain} id={id} values={item} mutate={mutate} />,
+      },
       {
         name: 'List',
         key: 'list_id',

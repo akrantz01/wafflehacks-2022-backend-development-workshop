@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
+import { KeyedMutator } from 'swr';
 
 import BackButton from 'components/BackButton';
 import DeleteButton from 'components/DeleteButton';
@@ -37,12 +38,12 @@ const Skeleton = ({ hasDescription, fields }: SkeletonProps): JSX.Element => (
 );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type RenderFunc = (item: any, id: string | number) => ReactNode;
+type RenderFunc<T> = (item: any, id: string | number, mutate: KeyedMutator<T>) => ReactNode;
 
 interface Field<T> {
   name: string;
   key: keyof T;
-  render: RenderFunc;
+  render: RenderFunc<T>;
 }
 
 interface Props<T> {
@@ -70,7 +71,7 @@ const DetailView = <T extends Record<string, any>>({
   const { query } = useRouter();
   const { id } = query;
 
-  const { data, isLoading, isError } = useFetch<T>(domain, `/${objectType}s/${id}`);
+  const { data, isLoading, isError, mutate } = useFetch<T>(domain, `/${objectType}s/${id}`);
 
   if (isLoading) {
     return <Skeleton hasDescription={descriptionKey !== undefined} fields={fields.map((f) => f.name)} />;
@@ -104,7 +105,7 @@ const DetailView = <T extends Record<string, any>>({
         <Grid>
           {fields.map((f) => (
             <Item key={f.name} label={f.name}>
-              {f.render(data[f.key], data[idKey])}
+              {f.render(data[f.key], data[idKey], mutate)}
             </Item>
           ))}
         </Grid>
