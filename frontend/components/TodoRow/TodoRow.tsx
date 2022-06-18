@@ -6,6 +6,7 @@ import { useSWRConfig } from 'swr';
 import { ReducedTodo } from 'lib/types';
 import { RowProps } from 'views/TableView';
 
+import { buildUrl } from '../../lib/url';
 import styles from './row.module.css';
 
 interface Props extends RowProps<ReducedTodo> {
@@ -21,7 +22,7 @@ const TodoRow = ({ cacheKey = '/todos', item, domain }: Props): JSX.Element => {
       if (items === undefined) return undefined;
 
       setLoading(true);
-      await fetch(`https://${domain}/todos/${item.id}/toggle`, { method: 'PUT' });
+      await fetch(buildUrl(domain, `/todos/${item.id}/toggle`), { method: 'PUT' });
       setLoading(false);
 
       return items;

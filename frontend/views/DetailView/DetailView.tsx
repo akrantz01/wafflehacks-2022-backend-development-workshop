@@ -9,6 +9,7 @@ import DeleteButton from 'components/DeleteButton';
 import { Grid, Item } from 'components/Grid';
 import useFetch from 'lib/useFetch';
 
+import { buildUrl } from '../../lib/url';
 import styles from './detail.module.css';
 
 interface SkeletonProps {
@@ -109,7 +110,7 @@ const DetailView = <T extends Record<string, any>>({
 
       <div className={styles.footer}>
         <BackButton />
-        <DeleteButton url={`https://${domain}/${objectType}s/${id}`} />
+        <DeleteButton url={buildUrl(domain, `/${objectType}s/${id}`)} />
       </div>
     </Card>
   );

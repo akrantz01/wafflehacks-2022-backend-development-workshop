@@ -2,6 +2,8 @@ import type { Page } from 'lib/page';
 import { List } from 'lib/types';
 import FormView from 'views/FormView';
 
+import { buildUrl } from '../../lib/url';
+
 type Input = Pick<List, 'name'> & {
   todos: number[];
 };
@@ -13,7 +15,7 @@ const initialValues: Input = {
 
 const New: Page = ({ domain }) => (
   <FormView
-    url={`https://${domain}/lists`}
+    url={buildUrl(domain, '/lists')}
     objectType="list"
     initialValues={initialValues}
     fields={[

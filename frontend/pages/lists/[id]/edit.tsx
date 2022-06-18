@@ -7,6 +7,8 @@ import { List } from 'lib/types';
 import useFetch from 'lib/useFetch';
 import FormView from 'views/FormView';
 
+import { buildUrl } from '../../../lib/url';
+
 type Values = Omit<List, 'id' | 'todos'>;
 
 const Edit: Page = ({ domain }) => {
@@ -27,7 +29,7 @@ const Edit: Page = ({ domain }) => {
 
   return (
     <FormView
-      url={`https://${domain}/lists/${id}`}
+      url={buildUrl(domain, `/lists/${id}`)}
       method="PATCH"
       objectType="list"
       initialValues={data}

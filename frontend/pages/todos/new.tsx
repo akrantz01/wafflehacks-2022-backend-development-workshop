@@ -3,6 +3,8 @@ import type { Page } from 'lib/page';
 import { Todo } from 'lib/types';
 import FormView from 'views/FormView';
 
+import { buildUrl } from '../../lib/url';
+
 type Input = Pick<Todo, 'summary' | 'list_id'> & {
   description: string;
 };
@@ -21,7 +23,7 @@ const transformer = (v: Input) => ({
 
 const New: Page = ({ domain }) => (
   <FormView
-    url={`https://${domain}/todos`}
+    url={buildUrl(domain, '/todos')}
     objectType="todo"
     initialValues={initialValues}
     fields={[

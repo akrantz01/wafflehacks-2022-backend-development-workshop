@@ -1,5 +1,7 @@
 import useSWR from 'swr';
 
+import { buildUrl } from './url';
+
 class FetchError extends Error {
   public readonly status: number;
 
@@ -10,7 +12,7 @@ class FetchError extends Error {
 }
 
 const fetcher = (domain: string) => async (path: string, init: RequestInit) => {
-  const response = await fetch(`https://${domain}${path}`, init);
+  const response = await fetch(buildUrl(domain, path), init);
   const body = await response.json();
 
   if (response.ok) return body;

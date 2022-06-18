@@ -8,6 +8,8 @@ import { Todo } from 'lib/types';
 import useFetch from 'lib/useFetch';
 import FormView from 'views/FormView';
 
+import { buildUrl } from '../../../lib/url';
+
 type Values = Omit<Todo, 'id' | 'tags'>;
 
 const Edit: Page = ({ domain }) => {
@@ -28,7 +30,7 @@ const Edit: Page = ({ domain }) => {
 
   return (
     <FormView
-      url={`https://${domain}/todos/${id}`}
+      url={buildUrl(domain, `/todos/${id}`)}
       method="PATCH"
       objectType="todo"
       initialValues={data}
