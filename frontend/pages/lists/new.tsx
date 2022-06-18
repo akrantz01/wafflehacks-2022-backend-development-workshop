@@ -4,12 +4,12 @@ import { List } from 'lib/types';
 import FormView from 'views/FormView';
 
 type Input = Pick<List, 'name'> & {
-  todos: number[];
+  todos: string;
 };
 
 const initialValues: Input = {
   name: '',
-  todos: [],
+  todos: '',
 };
 
 const New: NextPage = () => (
@@ -19,8 +19,12 @@ const New: NextPage = () => (
     initialValues={initialValues}
     fields={[
       { type: 'short', key: 'name', label: 'Name', required: true },
-      // TODO: figure out adding todos to a list on creation
+      { type: 'short', key: 'todos', label: 'Todos' },
     ]}
+    transformBody={(values) => ({
+      name: values.name,
+      todos: values.todos.length > 0 ? values.todos.split(',').map((id) => parseInt(id.trim())) : [],
+    })}
     redirectTo="/lists"
   />
 );
