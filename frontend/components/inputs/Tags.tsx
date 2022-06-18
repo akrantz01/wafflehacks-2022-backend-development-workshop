@@ -3,17 +3,15 @@ import React, { ReactNode, useState } from 'react';
 import { KeyedMutator } from 'swr';
 
 import { Todo } from 'lib/types';
-
-import { buildUrl } from '../../lib/url';
+import { buildUrl } from 'lib/url';
 
 interface Props {
-  domain: string;
   id: number | string;
   values: string[];
   mutate: KeyedMutator<Todo>;
 }
 
-const Tags = ({ domain, id, values, mutate }: Props): JSX.Element => {
+const Tags = ({ id, values, mutate }: Props): JSX.Element => {
   const [loading, setLoading] = useState(false);
 
   const onAdd = (updated: string[]) => {
@@ -24,7 +22,7 @@ const Tags = ({ domain, id, values, mutate }: Props): JSX.Element => {
 
       // Update the todo
       const added = updated[updated.length - 1];
-      await fetch(buildUrl(domain, `/todos/${id}/tags?name=${added}`), { method: 'POST' });
+      await fetch(buildUrl(`/todos/${id}/tags?name=${added}`), { method: 'POST' });
 
       todo.tags = values;
       return todo;
@@ -40,7 +38,7 @@ const Tags = ({ domain, id, values, mutate }: Props): JSX.Element => {
 
       // Remove the todo
       const removed = values[index];
-      await fetch(buildUrl(domain, `/todos/${id}/tags?name=${removed}`), { method: 'DELETE' });
+      await fetch(buildUrl(`/todos/${id}/tags?name=${removed}`), { method: 'DELETE' });
 
       todo.tags = todo.tags.filter((t) => t !== removed);
       return todo;

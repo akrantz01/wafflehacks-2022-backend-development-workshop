@@ -6,7 +6,8 @@ const determineScheme = (domain: string): string => {
   else return 'https';
 };
 
-export const buildUrl = (domain: string, path: string): string => {
+export const buildUrl = (path: string): string => {
+  const domain = localStorage.getItem('domain') as string;
   const scheme = determineScheme(domain);
   return `${scheme}://${domain}${path}`;
 };

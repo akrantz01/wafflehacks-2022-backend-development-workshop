@@ -11,8 +11,8 @@ class FetchError extends Error {
   }
 }
 
-const fetcher = (domain: string) => async (path: string, init: RequestInit) => {
-  const response = await fetch(buildUrl(domain, path), init);
+const fetcher = async (path: string, init: RequestInit) => {
+  const response = await fetch(buildUrl(path), init);
   const body = await response.json();
 
   if (response.ok) return body;
@@ -28,8 +28,8 @@ interface Response<T> {
   mutate: KeyedMutator<T>;
 }
 
-const useFetch = <T>(domain: string, path: string): Response<T> => {
-  const { data, error, mutate } = useSWR<T, Error>(path, fetcher(domain));
+const useFetch = <T>(path: string): Response<T> => {
+  const { data, error, mutate } = useSWR<T, Error>(path, fetcher);
 
   return {
     data,

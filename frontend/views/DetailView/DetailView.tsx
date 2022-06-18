@@ -47,7 +47,6 @@ interface Field<T> {
 }
 
 interface Props<T> {
-  domain: string;
   idKey: keyof T;
   titleKey: keyof T;
   descriptionKey?: keyof T;
@@ -59,7 +58,6 @@ interface Props<T> {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DetailView = <T extends Record<string, any>>({
-  domain,
   idKey,
   titleKey,
   descriptionKey,
@@ -71,7 +69,7 @@ const DetailView = <T extends Record<string, any>>({
   const { query } = useRouter();
   const { id } = query;
 
-  const { data, isLoading, isError, mutate } = useFetch<T>(domain, `/${objectType}s/${id}`);
+  const { data, isLoading, isError, mutate } = useFetch<T>(`/${objectType}s/${id}`);
 
   if (isLoading) {
     return <Skeleton hasDescription={descriptionKey !== undefined} fields={fields.map((f) => f.name)} />;
@@ -115,7 +113,7 @@ const DetailView = <T extends Record<string, any>>({
 
       <div className={styles.footer}>
         <BackButton />
-        <DeleteButton url={buildUrl(domain, `/${objectType}s/${id}`)} />
+        <DeleteButton url={buildUrl(`/${objectType}s/${id}`)} />
       </div>
     </Card>
   );

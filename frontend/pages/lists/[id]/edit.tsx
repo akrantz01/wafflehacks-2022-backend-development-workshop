@@ -1,20 +1,19 @@
 import { NonIdealState, Spinner } from '@blueprintjs/core';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import type { Page } from 'lib/page';
 import { List } from 'lib/types';
+import { buildUrl } from 'lib/url';
 import useFetch from 'lib/useFetch';
 import FormView from 'views/FormView';
 
-import { buildUrl } from '../../../lib/url';
-
 type Values = Omit<List, 'id' | 'todos'>;
 
-const Edit: Page = ({ domain }) => {
+const Edit: NextPage = () => {
   const { query } = useRouter();
   const { id } = query;
-  const { data, isLoading, isError } = useFetch<Values>(domain, `/lists/${id}`);
+  const { data, isLoading, isError } = useFetch<Values>(`/lists/${id}`);
 
   if (isLoading) return <Spinner size={50} />;
   if (isError || data === undefined) {
@@ -29,7 +28,7 @@ const Edit: Page = ({ domain }) => {
 
   return (
     <FormView
-      url={buildUrl(domain, `/lists/${id}`)}
+      url={buildUrl(`/lists/${id}`)}
       method="PATCH"
       objectType="list"
       initialValues={data}

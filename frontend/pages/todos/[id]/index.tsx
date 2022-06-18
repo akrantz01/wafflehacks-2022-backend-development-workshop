@@ -1,15 +1,12 @@
-import { Intent, Tag } from '@blueprintjs/core';
+import type { NextPage } from 'next';
 import Link from 'next/link';
 
-import type { Page } from 'lib/page';
+import { TagsInput } from 'components/inputs';
+import Status from 'components/Status';
 import DetailView from 'views/DetailView';
 
-import { TagsInput } from '../../../components/inputs';
-import Status from '../../../components/Status';
-
-const TodoDetail: Page = ({ domain }) => (
+const TodoDetail: NextPage = () => (
   <DetailView
-    domain={domain}
     idKey="id"
     titleKey="summary"
     descriptionKey="description"
@@ -18,12 +15,12 @@ const TodoDetail: Page = ({ domain }) => (
       {
         name: 'Status',
         key: 'complete',
-        render: (item: boolean, id) => <Status complete={item} domain={domain} id={id} invalidates={`/todos/${id}`} />,
+        render: (item: boolean, id) => <Status complete={item} id={id} invalidates={`/todos/${id}`} />,
       },
       {
         name: 'Tags',
         key: 'tags',
-        render: (item: string[], id, mutate) => <TagsInput domain={domain} id={id} values={item} mutate={mutate} />,
+        render: (item: string[], id, mutate) => <TagsInput id={id} values={item} mutate={mutate} />,
       },
       {
         name: 'List',

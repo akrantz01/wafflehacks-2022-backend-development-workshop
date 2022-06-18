@@ -1,21 +1,20 @@
 import { NonIdealState, Spinner } from '@blueprintjs/core';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 import { ListSelectInput } from 'components/inputs';
-import type { Page } from 'lib/page';
 import { Todo } from 'lib/types';
+import { buildUrl } from 'lib/url';
 import useFetch from 'lib/useFetch';
 import FormView from 'views/FormView';
 
-import { buildUrl } from '../../../lib/url';
-
 type Values = Omit<Todo, 'id' | 'tags'>;
 
-const Edit: Page = ({ domain }) => {
+const Edit: NextPage = () => {
   const { query } = useRouter();
   const { id } = query;
-  const { data, isLoading, isError } = useFetch<Values>(domain, `/todos/${id}`);
+  const { data, isLoading, isError } = useFetch<Values>(`/todos/${id}`);
 
   if (isLoading) return <Spinner size={50} />;
   if (isError || data === undefined) {
@@ -30,7 +29,7 @@ const Edit: Page = ({ domain }) => {
 
   return (
     <FormView
-      url={buildUrl(domain, `/todos/${id}`)}
+      url={buildUrl(`/todos/${id}`)}
       method="PATCH"
       objectType="todo"
       initialValues={data}
@@ -39,7 +38,7 @@ const Edit: Page = ({ domain }) => {
         {
           type: 'custom',
           key: 'list_id',
-          component: (props) => <ListSelectInput label="List" domain={domain} {...props} />,
+          component: (props) => <ListSelectInput label="List" {...props} />,
         },
         { type: 'long', key: 'description', label: 'Description' },
         { type: 'switch', key: 'complete', label: 'Complete' },

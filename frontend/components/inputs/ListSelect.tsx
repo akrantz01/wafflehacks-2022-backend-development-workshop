@@ -7,15 +7,11 @@ import useFetch from 'lib/useFetch';
 
 import { BaseProps } from './common';
 
-type Props = BaseProps<number | null> & {
-  domain: string;
-};
-
-const ListSelect = ({ domain, label, ...props }: Props): JSX.Element => {
+const ListSelect = ({ label, ...props }: BaseProps<number | null>): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ value, name }, _, { setValue }] = useField(props);
 
-  const { data } = useFetch<ReducedList[]>(domain, '/lists');
+  const { data } = useFetch<ReducedList[]>('/lists');
 
   return (
     <FormGroup label={label} labelFor={name}>

@@ -1,8 +1,8 @@
-import type { Page } from 'lib/page';
-import { List } from 'lib/types';
-import FormView from 'views/FormView';
+import type { NextPage } from 'next';
 
-import { buildUrl } from '../../lib/url';
+import { List } from 'lib/types';
+import { buildUrl } from 'lib/url';
+import FormView from 'views/FormView';
 
 type Input = Pick<List, 'name'> & {
   todos: number[];
@@ -13,9 +13,9 @@ const initialValues: Input = {
   todos: [],
 };
 
-const New: Page = ({ domain }) => (
+const New: NextPage = () => (
   <FormView
-    url={buildUrl(domain, '/lists')}
+    url={buildUrl('/lists')}
     objectType="list"
     initialValues={initialValues}
     fields={[

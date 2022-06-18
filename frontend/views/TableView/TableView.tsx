@@ -29,12 +29,10 @@ const FullRow = ({ children, span }: FullRowProps): JSX.Element => (
 );
 
 export interface RowProps<T> {
-  domain: string;
   item: T;
 }
 
 interface Props<T> {
-  domain: string;
   objectType: string;
   headings: string[];
   generateRowKey: (e: T) => string | number;
@@ -42,15 +40,8 @@ interface Props<T> {
   Row: ElementType<RowProps<T>>;
 }
 
-const TableView = <T,>({
-  domain,
-  objectType,
-  headings,
-  generateRowKey,
-  disableCreation,
-  Row,
-}: Props<T>): JSX.Element => {
-  const { data, isLoading, refresh } = useFetch<T[]>(domain, '/' + objectType);
+const TableView = <T,>({ objectType, headings, generateRowKey, disableCreation, Row }: Props<T>): JSX.Element => {
+  const { data, isLoading, refresh } = useFetch<T[]>('/' + objectType);
 
   const createButton = (
     <Link href={`/${objectType}/new`} passHref>
@@ -88,7 +79,7 @@ const TableView = <T,>({
             />
           </FullRow>
         )}
-        {data !== undefined && data.map((e) => <Row key={generateRowKey(e)} domain={domain} item={e} />)}
+        {data !== undefined && data.map((e) => <Row key={generateRowKey(e)} item={e} />)}
       </Table>
     </Card>
   );

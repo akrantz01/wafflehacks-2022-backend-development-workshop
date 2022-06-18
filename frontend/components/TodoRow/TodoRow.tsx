@@ -11,13 +11,13 @@ interface Props extends RowProps<ReducedTodo> {
   invalidates?: string;
 }
 
-const TodoRow = ({ invalidates = '/todos', item, domain }: Props): JSX.Element => (
+const TodoRow = ({ invalidates = '/todos', item }: Props): JSX.Element => (
   <tr>
     <td>
       <Link href={`/todos/${item.id}`}>{item.summary}</Link>
     </td>
     <td>
-      <Status complete={item.complete} domain={domain} id={item.id} invalidates={invalidates} />
+      <Status complete={item.complete} id={item.id} invalidates={invalidates} />
     </td>
     <td>
       {item.tags.map((tag) => (

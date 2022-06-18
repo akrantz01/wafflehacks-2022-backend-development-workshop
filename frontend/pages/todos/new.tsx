@@ -1,9 +1,9 @@
-import { ListSelectInput } from 'components/inputs';
-import type { Page } from 'lib/page';
-import { Todo } from 'lib/types';
-import FormView from 'views/FormView';
+import type { NextPage } from 'next';
 
-import { buildUrl } from '../../lib/url';
+import { ListSelectInput } from 'components/inputs';
+import { Todo } from 'lib/types';
+import { buildUrl } from 'lib/url';
+import FormView from 'views/FormView';
 
 type Input = Pick<Todo, 'summary' | 'list_id'> & {
   description: string;
@@ -21,9 +21,9 @@ const transformer = (v: Input) => ({
   list: v.list_id,
 });
 
-const New: Page = ({ domain }) => (
+const New: NextPage = () => (
   <FormView
-    url={buildUrl(domain, '/todos')}
+    url={buildUrl('/todos')}
     objectType="todo"
     initialValues={initialValues}
     fields={[
@@ -31,7 +31,7 @@ const New: Page = ({ domain }) => (
       {
         type: 'custom',
         key: 'list_id',
-        component: (props) => <ListSelectInput label="List" domain={domain} {...props} />,
+        component: (props) => <ListSelectInput label="List" {...props} />,
       },
       { type: 'long', key: 'description', label: 'Description' },
     ]}
